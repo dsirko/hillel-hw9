@@ -8,25 +8,21 @@ class Currency
 {
     private string $isoCode;
 
+    protected array $codes = ['EUR', 'USD', 'UAH'];
+
     public function __construct($isoCode)
     {
           $this->setIsoCode($isoCode);
     }
 
-    private function findIso($isoCode) :bool
+    private function findIso(string $isoCode) :bool
     {
-        $codes = array('EUR', 'USD', 'UAH');
-        foreach ($codes as $code) {
-            if ($code == $isoCode) {
-                return true;
-            }
-        }
-        return false;
+        return in_array($isoCode, $this->codes);
     }
 
     public function setIsoCode($isoCode)
     {
-        if ($this->findIso($isoCode) == 'true')
+        if ($this->findIso($isoCode))
         {
             $this->isoCode = $isoCode;
         } else {
@@ -39,13 +35,9 @@ class Currency
         return $this->isoCode;
     }
 
-    public function equals($obj) :bool
+    public function equals(Currency $obj) :bool
     {
-        if ($obj->isoCode == $this->isoCode) {
-            return true;
-        } else {
-            return false;
-        }
+        return $obj->isoCode == $this->isoCode;
     }
 }
 
