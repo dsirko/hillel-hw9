@@ -9,15 +9,15 @@ class Money
     private int | float $amount;
     private Currency $currency;
 
-    public function __construct(Currency $currency, float$amount)
+    public function __construct(Currency $currency, float $amount)
     {
-        $this->setAmountCurrency($currency, $amount);
+        $this->currency = $currency;
+        $this->setAmount($amount);
     }
 
-    public function setAmountCurrency(Currency $currency, float$amount)
+    public function setAmount(float $amount)
     {
         $this->amount = $amount;
-        $this->currency = $currency;
     }
 
     public function getAmountCurrency()
@@ -25,17 +25,12 @@ class Money
         return [$this->amount, $this->currency];
     }
 
-    public function equals($obj)
+    public function equals(Currency $obj) :bool
     {
-        if (($obj->currency == $this->currency) && ($obj->amount == $this->amount))
-        {
-            return true;
-        } else{
-            return false;
-        }
+        return ($obj->currency == $this->currency) && ($obj->amount == $this->amount);
     }
 
-    public function add($obj)
+    public function add($obj) :bool
     {
         if ($obj->currency == $this->currency) {
             $this->setAmountCurrency($this->currency, $this->amount + $obj->amount);
@@ -45,4 +40,3 @@ class Money
         }
     }
 }
-
